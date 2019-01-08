@@ -1,0 +1,12 @@
+.idea
+.vscode
+.vs
+*.user
+**/*.min.css
+**/*.js.css
+
+**/bin
+**/obj
+**/app
+**/node_modules
+HeatMap.Web/wwwroot/js/*.*

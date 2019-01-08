@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "none",
+    "target": "es2015",
+    "sourceMap": true,
+    "outDir": "./wwwroot/js"
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "Ts-src/**/*.ts"
+  ]
+}

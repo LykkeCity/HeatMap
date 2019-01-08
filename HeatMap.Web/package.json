@@ -1,0 +1,11 @@
+{
+  "name": "HeatMap.Web",
+  "version": "1.0.0",
+  "dependencies": {
+    "jquery": "^3.3.1"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.3.29",
+    "typescript": "^3.2.2"
+  }
+}
