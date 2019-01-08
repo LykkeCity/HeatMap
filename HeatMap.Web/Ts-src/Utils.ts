@@ -1,5 +1,6 @@
 namespace Lykke.HeatMap
 {
+        
     interface IKeyValue<TValue> {
         key:string;
         value:TValue;

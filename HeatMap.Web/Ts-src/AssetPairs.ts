@@ -113,13 +113,7 @@ namespace Lykke.HeatMap {
         {
             if (!this._assets)
                 return;
-
             
-            
-           this._assets.forEach(ap=>{
-               
-            });
-          
         }
 
     }

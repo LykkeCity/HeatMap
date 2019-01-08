@@ -18,18 +18,13 @@ namespace Lykke.HeatMap {
         
         public static generateAssetHtml(assetPair:IAssetPair):string{
             return '<div id='+this.generateAssetPairId(assetPair.id)+' class="asset-pair"><svg style="width: 100%; height: 100%">' +
-                '<defs>' +
-                '    <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%">\n' +
-                '      <stop offset="0%"   stop-color="rgba(255,255,255,0.1)"/>\n' +
-                '      <stop offset="100%" stop-color="rgba(255,255,255,0.3)"/>\n' +
-                '    </linearGradient>\n' +
-                '  </defs>'+
+                '<defs><linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="rgba(255,255,255,0.1)"/>' +
+                '<stop offset="100%" stop-color="rgba(255,255,255,0.3)"/></linearGradient></defs>'+
                 '<path id="'+this.generateAssetGraphDataId(assetPair.id)+'" fill="url(#linear)"></path>' +
                 '<text x="10" y="40" fill="white" class="ap-name">'+assetPair.name+'</text>' +
                 '<text x="10" y="70" fill="white" class="ap-percent">+12.45%</text>' +
                 '<text id="'+this.generatePriceId(assetPair.id)+'" x="10" y="90" fill="white" class="ap-price"></text></svg></div>';
         }
-        
         
         public static generateAssetChart(ad:IAssetData, asset:IAssetPair,  width:number, height:number):string
         {
@@ -45,14 +40,12 @@ namespace Lykke.HeatMap {
             
             console.log('w:'+width+'; h:'+height);
             
-            
             let xZoom = width / ad.history.length;
             
             let max = Utils.max(ad.history);
             let min = Utils.min(ad.history);
             
             console.log('pips '+asset.id+': '+Utils.pips(min, max, asset));
-            
             
             let y =  height+Utils.pips(max, ad.history[0], asset) ;
             result += 'M0 '+y.toFixed(0);

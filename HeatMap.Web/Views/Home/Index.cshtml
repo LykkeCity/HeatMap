@@ -2,15 +2,10 @@
     ViewData["Title"] = "Home Page";
 }
 
-<environment include="Development">
 <div class="lykke-heat-map" style="height: 500px;">
     <script src="/js/lykke-heat-map.js?rnd=@Guid.NewGuid().ToString("N")"></script>
 </div>
-</environment>
 
-<environment exclude="Development">
-    <div class="lykke-heat-map" style="height: 500px;">
-        <script src="/js/lykke-heat-map.min.js"></script>
-    </div>
+
     @* <iframe src="https://coin360.com/widget/map.html" title="Coin360.com: Cryptocurrency Market State" width="800" height="800"></iframe>  *@
-</environment>
+
