@@ -8,8 +8,11 @@ namespace Lykke.HeatMap {
         
         
         static async getAssets(){
-            return <Lykke.HeatMap.IAssetPair[]>(await this.get('/api/Assets'));
+            return <Lykke.HeatMap.IAssetPair[]>(await this.get('/api/dictionaries/assets'));
         }
 
+        static async getAssetsData(){
+            return <Lykke.HeatMap.IAssetData[]>(await this.get('/api/data'));
+        }
     }
 }

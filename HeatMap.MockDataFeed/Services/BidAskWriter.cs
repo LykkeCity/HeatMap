@@ -25,14 +25,10 @@ namespace HeatMap.MockDataFeed.Services
 
         public static BidAskRepository BidAskRepository { get; private set; }
 
-        public static string BidAskRepositoryUrl;
-
-
         public static void Inject(BidAskRepository bidAskRepository)
         {
             BidAskRepository = bidAskRepository;
         }
-
 
         public static async Task UpdateAsync(IBidAsk[] items)
         {

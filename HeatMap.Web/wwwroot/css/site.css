@@ -57,15 +57,40 @@ body {
 
 .lykke-heat-map{
   margin: auto;
+  text-align: center;
+  margin-bottom: 20px;
+  width: 800px;
+  
 }
+.lykke-heat-map:after{
+  content: "";
+  background-image: url('/images/lykke.svg');
+  background-position: 720px 430px;
+  background-repeat: no-repeat;
+  opacity: 0.2;
+  position: relative;
+  width: 800px;
+  height: 500px;
+  position: relative;
+  display: block;
+  top: -500px;
+  left: 0;
+
+  background-size: 64px 64px;
+}
+
+
 .lykke-heat-map .asset-pair{
   font-family: "Oswald", sans-serif;
   margin: 2px;
   display: inline-block;
-  width: 48%;
-  height: 48%;
+  width: 32%;
+  height: 33%;
   text-align: center;
-  background: green;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 0 0 3px grey;
+
 }
 
 .lykke-heat-map .asset-pair .ap-name{
@@ -85,3 +110,29 @@ body {
   color: white;
   text-shadow: 1px 1px 1px black;
 }
+
+.lykke-heat-map .price-down{
+  background: #980303;
+  background-image: linear-gradient(170deg, rgba(255,255,255,0.2) 9%,rgba(255,255,255,0.1) 40%,rgba(255,255,255,0) 31%,rgba(255,255,255,0) 100%);
+  transition: background-color 1s;
+}
+
+.lykke-heat-map .price-up{
+  background: #006300;
+  background-image: linear-gradient(170deg, rgba(255,255,255,0.2) 9%,rgba(255,255,255,0.1) 40%,rgba(255,255,255,0) 31%,rgba(255,255,255,0) 100%);
+  transition: background-color 1s;
+}
+
+
+
+/*
+.price-down path{
+  /fill: red;
+  transition: background-color 1s;
+}
+
+.price-up path{
+  #fill: green;
+  transition: background-color 1s;
+}
+*/

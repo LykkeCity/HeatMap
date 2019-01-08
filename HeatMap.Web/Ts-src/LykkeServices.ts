@@ -3,9 +3,14 @@ namespace Lykke.HeatMap {
     
     export class lykkeServices {
         public static rootUrl = "https://localhost.5000";
-
+        
+        public static priceUpAttr = "price-up";
+        public static priceDownAttr = "price-down";
 
         public static assetPairs:Lykke.HeatMap.AssetPairs;
+        
+        
+        public static readonly assetData : Map<IAssetData> = new Map<IAssetData>();
 
     }
 
@@ -18,8 +23,6 @@ namespace Lykke.HeatMap {
 
             return this._rootElement;
         }
-
-        public static readonly assetPairs = new Lykke.HeatMap.Map<JQuery>();
     }    
 }
 

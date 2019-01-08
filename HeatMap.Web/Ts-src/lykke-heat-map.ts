@@ -26,13 +26,10 @@ namespace Lykke.HeatMap {
 
     lykkeServices.assetPairs = new Lykke.HeatMap.AssetPairs();
     
-
-
-    
     
     $(()=>{
         app.timer();
-        window.setInterval(() => app.timer(), 1000);
+        window.setInterval(() => app.timer(), 5000);
     });
 
 }

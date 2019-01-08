@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace HeatMap.Web.Controllers
 {
     
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[Action]")]
     [ApiController]
-    public class AssetsController : ControllerBase
+    public class DictionariesController : ControllerBase
     {
         
         [HttpGet]

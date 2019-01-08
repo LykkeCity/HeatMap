@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace HeatMap.Domains
@@ -12,6 +13,7 @@ namespace HeatMap.Domains
     public interface IBidAskHistoryRepository
     {
         Task<IBidAskHistory> GetAsync(string id);
+        Task<IEnumerable<IBidAskHistory>> GetAllAsync();
     }
     
 }

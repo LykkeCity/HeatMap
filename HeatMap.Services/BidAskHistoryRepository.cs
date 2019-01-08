@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using HeatMap.Domains;
 using MyNoSqlServerClient;
@@ -54,6 +55,12 @@ namespace HeatMap.Services
             var partitionKey = BidAskHistoryTableEntity.GeneratePartitionKey();
             var rowKey = BidAskHistoryTableEntity.GenerateRowKey(id);
             return await _table.GetAsync(partitionKey, rowKey);
+        }
+
+        public async Task<IEnumerable<IBidAskHistory>> GetAllAsync()
+        {
+            var partitionKey = BidAskHistoryTableEntity.GeneratePartitionKey();
+            return await _table.GetAsync(partitionKey);
         }
     }
 }

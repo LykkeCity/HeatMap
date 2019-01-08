@@ -17,6 +17,10 @@ namespace HeatMap.Services
         {
             var bidAskRepository = new BidAskRepository(new MyNoSqlServerClient<BidAskMySqlTableEntity>(settings.CacheUrl, "bidask"));
             dc.AddSingleton<IBidAskRepository, BidAskRepository>(bidAskRepository);
+            
+            
+            var bidAskHistoryRepository = new BidAskHistoryRepository(new MyNoSqlServerClient<BidAskHistoryTableEntity>(settings.CacheUrl, "bidaskhistory"));
+            dc.AddSingleton<IBidAskHistoryRepository, BidAskHistoryRepository>(bidAskHistoryRepository);
         }
         
     }

@@ -33,4 +33,50 @@ namespace Lykke.HeatMap
         }
         
     }
+
+    
+    export class Utils{
+        
+        public static max(data:number[]):number {
+
+            if (data.length == 1)
+                return data[0];
+            
+            let max= data[0];
+            
+            for (let i=1; i<data.length; i++)
+            {
+                if (max<data[i])
+                    max = data[i];
+            }
+            
+            return max;
+        }
+
+        public static min(data:number[]):number {
+
+            if (data.length == 1)
+                return data[0];
+
+            let min= data[0];
+
+            for (let i=1; i<data.length; i++)
+            {
+                if (min>data[i])
+                    min = data[i];
+            }
+
+            return min;
+        }
+        
+        public static pips(d1:number, d2:number, ap: IAssetPair):number
+        {
+            return (d2*Math.pow(10, ap.accuracy)-d1*Math.pow(10, ap.accuracy));
+            
+            
+        }
+    }
+    
 }
+
+
