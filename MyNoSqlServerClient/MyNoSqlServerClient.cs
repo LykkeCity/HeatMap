@@ -12,10 +12,14 @@ namespace MyNoSqlServerClient
         private readonly string _url;
         private readonly string _tableName;
 
+        private const string PartitionKey = "partitionKey";
+        private const string RowKey = "rowKey";
+        private const string TableName = "tableName";
+        
         public MyNoSqlServerClient(string url, string tableName)
         {
             _url = url;
-            _tableName = tableName;
+            _tableName = tableName.ToLower();
             Task.Run(CreateTableIfNotExistsAsync);
         }
 
@@ -23,7 +27,7 @@ namespace MyNoSqlServerClient
         {
             await _url
                 .AppendPathSegments("Tables", "CreateIfNotExists")
-                .SetQueryParam("tableName", _tableName)
+                .SetQueryParam(TableName, _tableName)
                 .PostStringAsync(string.Empty);
         }
 
@@ -31,7 +35,7 @@ namespace MyNoSqlServerClient
         {
             await _url
                 .AppendPathSegments("Row", "Insert")
-                .SetQueryParam("tableName", _tableName)
+                .SetQueryParam(TableName, _tableName)
                 .PostJsonAsync(entity);
         }
 
@@ -39,7 +43,7 @@ namespace MyNoSqlServerClient
         {
             await _url
                 .AppendPathSegments("Row", "InsertOrReplace")
-                .SetQueryParam("tableName", _tableName)
+                .SetQueryParam(TableName, _tableName)
                 .PostJsonAsync(entity);
         }
         
@@ -48,8 +52,8 @@ namespace MyNoSqlServerClient
         {
             return await _url
                 .AppendPathSegments("Row")
-                .SetQueryParam("tableName", _tableName)
-                .SetQueryParam("partitionKey", partitionKey)                
+                .SetQueryParam(TableName, _tableName)
+                .SetQueryParam(PartitionKey, partitionKey)                
                 .GetAsync()
                 .ReadAsJsonAsync<T[]>();
         }
@@ -59,9 +63,9 @@ namespace MyNoSqlServerClient
 
             var response = await _url
                 .AppendPathSegments("Row")
-                .SetQueryParam("tableName", _tableName)
-                .SetQueryParam("partitionKey", partitionKey)
-                .SetQueryParam("rowKey", rowKey)
+                .SetQueryParam(TableName, _tableName)
+                .SetQueryParam(PartitionKey, partitionKey)
+                .SetQueryParam(RowKey, rowKey)
                 .AllowHttpStatus(HttpStatusCode.NotFound)
                 .GetAsync();
 

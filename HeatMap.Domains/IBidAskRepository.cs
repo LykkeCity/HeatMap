@@ -17,5 +17,14 @@ namespace HeatMap.Domains
     {
         Task<IEnumerable<IBidAsk>> GetAllAsync();
     }
+
+
+    public static class BidAskHelpers
+    {
+        public static double GetMid(this IBidAsk bidAsk)
+        {
+            return (bidAsk.Bid + bidAsk.Ask) * 0.5;
+        }
+    }
     
 }

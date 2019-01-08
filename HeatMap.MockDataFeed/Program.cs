@@ -18,7 +18,7 @@ namespace HeatMap.MockDataFeed
             var table = new MyNoSqlServerClient<BidAskMySqlTableEntity>(settings.CacheUrl, "bidask");
             var bidAskRepository = new BidAskRepository(table);
             
-            var tableBidAskHistory = new MyNoSqlServerClient<BidAskHistoryTableEntity>(settings.CacheUrl, "bidAskHistory");
+            var tableBidAskHistory = new MyNoSqlServerClient<BidAskHistoryTableEntity>(settings.CacheUrl, "bidaskhistory");
             var bidAskHistoryRepository = new BidAskHistoryRepository(tableBidAskHistory);
             
             BidAskWriter.Inject(bidAskRepository);
@@ -32,7 +32,8 @@ namespace HeatMap.MockDataFeed
                 try
                 {
                     var bidAsk =  BidAskReader.RequestDataAsync().Result;
-                    BidAskWriter.UpdateAsync(bidAsk).Wait();
+                    BidAskWriter.UpdateAsync(bidAsk).Wait();                    
+
                     BidAskHistoryWriter.UpdateAsync(bidAsk).Wait();
                 }
                 catch (Exception e)
