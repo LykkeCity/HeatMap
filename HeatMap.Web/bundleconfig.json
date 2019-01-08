@@ -1,0 +1,26 @@
+[
+  {
+    "outputFileName": "wwwroot/css/site.min.css",
+    "inputFiles": [
+      "wwwroot/css/bootstrap.css",
+      "wwwroot/css/site.css"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/js/lykke-heat-map.min.js",
+    "inputFiles": [
+      "wwwroot/js/lib/jquery.js",
+      "wwwroot/js/lib/Utils.js",
+      "wwwroot/js/lib/HtmlGenerators.js",
+      "wwwroot/js/lib/AssetPairs.js",
+      "wwwroot/js/lib/Ajax.js",
+      "wwwroot/js/lib/LykkeServices.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]
