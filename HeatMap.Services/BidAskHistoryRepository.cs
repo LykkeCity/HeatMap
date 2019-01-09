@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using HeatMap.Domains;
 using MyNoSqlServerClient;
@@ -44,10 +45,10 @@ namespace HeatMap.Services
         }
 
 
-        public async Task UpdateAsync(IBidAskHistory item)
+        public async Task UpdateAsync(IEnumerable<IBidAskHistory> items)
         {
-            var entity = BidAskHistoryTableEntity.Create(item);
-            await _table.InsertOrReplaceAsync(entity);
+            var entities = items.Select(BidAskHistoryTableEntity.Create);
+            await _table.BulkInsertOrReplaceAsync(entities);
         }
         
         public async Task<IBidAskHistory> GetAsync(string id)

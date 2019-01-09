@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Common;
 using HeatMap.Domains;
@@ -54,16 +55,20 @@ namespace HeatMap.MockDataFeed.Services
             if (now.HadUpdateSameMinute())
                 return;
             _lastUpdate = now;
+
+            var updateMe = new List<IBidAskHistory>();
             
             foreach (var bidAsk in items)
             {
                 var entity = await BidAskHistoryRepository.GetAsync(bidAsk.Id) ?? BidAskHistory.CreateDefault(bidAsk.Id);
                 
-                
                 entity = BidAskHistory.Create(entity.Id, entity.History.Add(bidAsk.GetMid(), 60));
 
-                await BidAskHistoryRepository.UpdateAsync(entity);
+                updateMe.Add(entity);
             }
+            
+            await BidAskHistoryRepository.UpdateAsync(updateMe);
+            
             
             Console.WriteLine($"{DateTime.UtcNow}: Updated BidAskHistory. Count:"+items.Length);
         }

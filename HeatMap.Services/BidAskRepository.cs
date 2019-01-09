@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using HeatMap.Domains;
 using MyNoSqlServerClient;
@@ -52,15 +53,11 @@ namespace HeatMap.Services
             return await _table.GetAsync(partitionKey);
         }
 
-
         public async Task UpdateAsync(IEnumerable<IBidAsk> items)
         {
-
-            foreach (var item in items)
-            {
-                var newEntity = BidAskMySqlTableEntity.Create(item);
-                await _table.InsertOrReplaceAsync(newEntity);
-            }
+            var entities = items.Select(BidAskMySqlTableEntity.Create);
+            await _table.BulkInsertOrReplaceAsync(entities);
         }
+        
     }
 }
