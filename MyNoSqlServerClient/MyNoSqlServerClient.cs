@@ -46,7 +46,15 @@ namespace MyNoSqlServerClient
                 .SetQueryParam(TableName, _tableName)
                 .PostJsonAsync(entity);
         }
-        
+
+        public async Task BulkInsertOrReplaceAsync(IEnumerable<T> entities)
+        {
+            await _url
+                .AppendPathSegments("Bulk", "InsertOrReplace")
+                .SetQueryParam(TableName, _tableName)
+                .PostJsonAsync(entities);
+        }
+
 
         public async Task<IEnumerable<T>> GetAsync(string partitionKey)
         {

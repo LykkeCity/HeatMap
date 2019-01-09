@@ -23,6 +23,7 @@ namespace MyNoSqlServerClient
     {
         Task InsertAsync(T entity);
         Task InsertOrReplaceAsync(T entity);
+        Task BulkInsertOrReplaceAsync(IEnumerable<T> entity);
 
         Task<IEnumerable<T>> GetAsync(string partitionKey);
         Task<T> GetAsync(string partitionKey, string rowKey);
