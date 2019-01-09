@@ -10,7 +10,6 @@
   {
     "outputFileName": "wwwroot/js/lykke-heat-map.min.js",
     "inputFiles": [
-      "wwwroot/js/lib/jquery.js",
       "wwwroot/js/Utils.js",
       "wwwroot/js/HtmlGenerators.js",
       "wwwroot/js/AssetPairs.js",
