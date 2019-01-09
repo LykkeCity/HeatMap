@@ -38,22 +38,28 @@ namespace Lykke.HeatMap {
             if (width == 0 || height == 0)
                 return result;
             
-            console.log('w:'+width+'; h:'+height);
-            
             let xZoom = width / ad.history.length;
             
             let max = Utils.max(ad.history);
             let min = Utils.min(ad.history);
             
-            console.log('pips '+asset.id+': '+Utils.pips(min, max, asset));
+            let maxDeviation = Utils.pips(min, max, asset);
             
-            let y =  height+Utils.pips(max, ad.history[0], asset) ;
+            let yZoom = Utils.round( maxDeviation/ height, 0);
+            
+            if (yZoom === 0)
+                yZoom = 1;
+            
+            //console.log('yZoom '+asset.id+': '+yZoom+"; Deviation: "+maxDeviation+"; Height: "+height);
+            
+            let y =  height - Utils.pips(min,ad.history[0], asset) / yZoom;
+
             result += 'M0 '+y.toFixed(0);
             
             for (let i=1; i<ad.history.length; i++){
                 let x = i*xZoom;
                 
-                y = height+Utils.pips(max, ad.history[i], asset);
+                y = height-Utils.pips(min, ad.history[i], asset) / yZoom;
                 result += ' L'+x.toFixed(0)+' '+y.toFixed(0);
             } 
             

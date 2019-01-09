@@ -27,11 +27,12 @@ namespace Lykke.HeatMap
             this._items = {};
         }
         
+        /*
         public enumerate(callback:(kvp:IKeyValue<TValue>)=>void):void{
             Object.keys(this._items).forEach(key=>{
                 callback({key, value:this.getValue(key)})
             })
-        }
+        }*/
         
     }
 
@@ -40,7 +41,7 @@ namespace Lykke.HeatMap
         
         public static max(data:number[]):number {
 
-            if (data.length == 1)
+            if (data.length === 1)
                 return data[0];
             
             let max= data[0];
@@ -56,7 +57,7 @@ namespace Lykke.HeatMap
 
         public static min(data:number[]):number {
 
-            if (data.length == 1)
+            if (data.length === 1)
                 return data[0];
 
             let min= data[0];
@@ -75,6 +76,15 @@ namespace Lykke.HeatMap
             return (d2*Math.pow(10, ap.accuracy)-d1*Math.pow(10, ap.accuracy));
             
             
+        }
+        
+        public static round(n:number, accuracy:number):number{
+            let str = n.toFixed(accuracy);
+            
+            if (accuracy == 0)
+              return parseInt(str);
+            
+            return parseFloat(str);
         }
     }
     

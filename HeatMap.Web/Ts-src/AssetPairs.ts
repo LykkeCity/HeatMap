@@ -3,6 +3,8 @@ namespace Lykke.HeatMap {
     
     
     
+    import IAssetData = Lykke.HeatMap.IAssetData;
+
     export class AssetPairs {
         
         private _assets: IAssetPair[];
@@ -18,12 +20,14 @@ namespace Lykke.HeatMap {
             return undefined;
         }
         
-        private async loadAssets(){
-            
-            this._assets = await Ajax.getAssets();
-            this.populateContent();
-            this.resize();
-            await this.populateAssetData();
+        private loadAssets() {
+
+            Ajax.getAssets(assets => {
+                this._assets = assets;
+                this.populateContent();
+                this.resize();
+                this.populateAssetData();
+            });
         }
         
         
@@ -80,7 +84,7 @@ namespace Lykke.HeatMap {
              let asset = this.getAssetPair(ad.id);
             
             let graph = HtmlGenerators.generateAssetChart(ad, asset, elAsset.width(), elAsset.height());
-            console.log(graph);
+         //  console.log(graph);
             let el = $('#' + HtmlGenerators.generateAssetGraphDataId(ad.id));
             
             el.attr('d', graph);
@@ -89,13 +93,15 @@ namespace Lykke.HeatMap {
         
         
         
-        private async populateAssetData() {
+        private populateAssetData():void {
 
-            let assetData = await Ajax.getAssetsData();
-
-            assetData.forEach(ad => {
-                this.populateAssetPrice(ad);
-                this.populateAssetGraph(ad);
+            Ajax.getAssetsData(assetData=>{
+                
+                assetData.forEach(ad => {
+                    this.populateAssetPrice(ad);
+                    this.populateAssetGraph(ad);
+                });
+                
             });
 
         }

@@ -2,17 +2,21 @@ namespace Lykke.HeatMap {
     
     export class Ajax {
 
-        static async get(url:string, model?:any){
-           return await $.ajax({url:url, method:'GET', data:model});
+        static get(url:string, model?:any){
+           return $.ajax({url:url, method:'GET', data:model});
         } 
         
-        
-        static async getAssets(){
-            return <Lykke.HeatMap.IAssetPair[]>(await this.get('/api/dictionaries/assets'));
+        static getAssets(callback: (assets:IAssetPair[])=>void):void{
+             this.get('/api/dictionaries/assets')
+                 .then(r=>{
+                 callback(r);
+             });
         }
 
-        static async getAssetsData(){
-            return <Lykke.HeatMap.IAssetData[]>(await this.get('/api/data'));
+        static getAssetsData(callback: (assets:IAssetData[])=>void):void{
+            this.get('/api/data').then(r=>{
+                callback(r);
+            });
         }
     }
 }
