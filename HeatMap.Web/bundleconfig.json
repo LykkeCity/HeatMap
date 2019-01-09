@@ -14,7 +14,8 @@
       "wwwroot/js/HtmlGenerators.js",
       "wwwroot/js/AssetPairs.js",
       "wwwroot/js/Ajax.js",
-      "wwwroot/js/LykkeServices.js"
+      "wwwroot/js/LykkeServices.js",
+      "wwwroot/js/lykke-heat-map.js"
     ],
     "minify": {
       "enabled": true,
