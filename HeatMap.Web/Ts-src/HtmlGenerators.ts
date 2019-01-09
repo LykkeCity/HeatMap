@@ -47,8 +47,8 @@ namespace Lykke.HeatMap {
             
             let yZoom = Utils.round( maxDeviation/ height, 0);
             
-            if (yZoom === 0)
-                yZoom = 1;
+          
+            yZoom++;
             
             //console.log('yZoom '+asset.id+': '+yZoom+"; Deviation: "+maxDeviation+"; Height: "+height);
             
