@@ -4,13 +4,17 @@
 
 
 <environment include="Development">
-    <div class="lykke-heat-map" style="height: 500px;">
-        <script src="/js/lykke-heat-map.js?rnd=@Guid.NewGuid().ToString("N")"></script>
+    <div class="lykke-tiles" style="height: 500px;">
+        <script src="/js/GraphTiles/App.js?rnd=@Guid.NewGuid().ToString("N")"></script>
     </div>
+    <div class="lykke-HeatMap" style="height: 500px;">
+        <script src="/js/HeatMap/App.js?rnd=@Guid.NewGuid().ToString("N")"></script>
+    </div>
+
 </environment>
 
 <environment exclude="Development">
-    <div class="lykke-heat-map" style="height: 500px;">
+    <div class="lykke-tiles" style="height: 500px;">
         <script src="/js/lykke-heat-map.min.js" asp-append-version="true"></script>
     </div>
 </environment>

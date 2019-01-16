@@ -1,35 +1,33 @@
-namespace Lykke.HeatMap {
+namespace Lykke.GraphTiles {
 
-    class app {
-        private static n = 0;
+    class App {
         private static width = 0;
         private static height = 0;
 
         private static resize(): void {
-            let rootElement = domElements.getRootElement();
+            let rootElement = DomElements.getRootElement();
             let newWidth = rootElement.width();
             let newHeight = rootElement.height();
 
             if (newWidth != this.width || newHeight != this.height) {
                 this.width = newWidth;
                 this.height = newHeight;
-                lykkeServices.assetPairs.resize();
+                ServiceLocator.assetPairs.resize();
             }
-            
         }
 
         public static timer(): void {
             this.resize();
-            lykkeServices.assetPairs.timer();
+            ServiceLocator.assetPairs.timer();
         }
     }
 
-    lykkeServices.assetPairs = new Lykke.HeatMap.AssetPairs();
-    
-    
-    $(()=>{
-        app.timer();
-        window.setInterval(() => app.timer(), 5000);
+    ServiceLocator.assetPairs = new AssetPairs();
+
+    window.addEventListener("load", () => {
+        App.timer();
+        window.setInterval(() => App.timer(), 5000);
+        console.log("GraphTiles loaded");
     });
 
 }
