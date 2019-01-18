@@ -9,5 +9,6 @@
 **/obj
 **/app
 **/node_modules
+
 HeatMap.Web/wwwroot/**/*.js
 HeatMap.Web/wwwroot/**/*.js.map
