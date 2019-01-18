@@ -1,7 +1,7 @@
 namespace Lykke.HeatMap {
     export class App {
         
-        private static _leftPanel:IOvershoot;
+        private static _data:IOvershootContract;
 
         private static width = 0;
         private static height = 0;
@@ -24,20 +24,20 @@ namespace Lykke.HeatMap {
         static renderRootElement(){
             this.resize();
             let rootElement = DomElements.getRootElement();
-            let layout = HtmlGenerators.GenerateLayout(this.width, this.height, this._leftPanel);
+            let layout = HtmlGenerators.GenerateLayout(this.width, this.height, this._data);
             rootElement.html(layout);
         }
         
         static init():void{
             
-            if (this._leftPanel) {
+            if (this._data) {
                 if (this.resize())
                     this.renderRootElement();
                 return;
             }
             
             DataService.getOvershoots(resp =>{
-                this._leftPanel = resp;
+                this._data = resp;
                 this.renderRootElement();
             });
             

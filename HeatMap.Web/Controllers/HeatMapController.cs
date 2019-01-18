@@ -9,9 +9,9 @@ namespace HeatMap.Web.Controllers
     public class HeatMapController : ControllerBase
     {
         [HttpGet]
-        public OvershootContract Overshoot(string assetPair)
+        public OvershootResponseContract Overshoot(string assetPair)
         {
-            return OvershootContract.CreateMockLyCi();
+            return OvershootResponseContract.CreateMock();
         }
     }
 }

@@ -1,5 +1,10 @@
 namespace Lykke.HeatMap {
 
+    
+    export interface IOvershootContract {
+        index : IOvershoot,
+        parts : IOvershoot[]
+    }
 
     export interface IOvershoot {
         assetId: string;

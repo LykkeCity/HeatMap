@@ -4,9 +4,10 @@ namespace Lykke.HeatMap {
         
 
         
-        static GenerateLayout(w:number, h:number, left: IOvershoot):string{
+        static GenerateLayout(w:number, h:number, data: IOvershootContract):string{
             return '<table style="width: 100%;height: 100%"><tr>' +
-                '<td style="width: 50%;">'+HtmlGenerators.GenerateThresholdLayers(w*0.5, h, left)+'</td><td style="width: 50%;"></td></tr></table>';
+                '<td style="width: 50%; padding: 2px;">'+HtmlGenerators.GenerateThresholdLayers(w*0.5, h, data.index)+'</td>' +
+                '<td style="width: 50%;">'+HtmlGenerators.GenerateOtherAssets(w*0.5, h, data.parts)+'</td></tr></table>';
         }
         
         
@@ -99,7 +100,15 @@ namespace Lykke.HeatMap {
 
             let center_w = 60;
             let center_h = 30;
+            let dirsize = 'width:24px';
             
+            if (h<200){
+                dirsize = 'width:8px';
+                center_w = 35;
+                center_h = 20;
+            }
+
+
             let cw = (w-center_w) / data.thresholds.length;
             let ch = (h-center_h) / data.thresholds.length;
 
@@ -108,7 +117,11 @@ namespace Lykke.HeatMap {
    
             let paddingStyle = 'style="width:'+cwh+'px; height:'+chh+'px"';
             
+     
+
             let result = '';
+            
+            
             
             for(let i=0; i<data.thresholds.length; i++){
                 
@@ -129,7 +142,7 @@ namespace Lykke.HeatMap {
             for (let i=data.thresholds.length-1; i>=0; i--){
                 let threshold = data.thresholds[i];
                 
-                result += '</td><td><img src="/images/arrow-'+threshold.direction+'.svg" style="width:24px"/></td></tr>'+
+                result += '</td><td><img src="/images/arrow-'+threshold.direction+'.svg" style="'+dirsize+'"/></td></tr>'+
                     '<tr><td '+paddingStyle+'></td><td>'+threshold.delta.toFixed(2)+'δ</td><td '+paddingStyle+'></td></tr>' +
                     '</table>';
             } 
@@ -140,9 +153,41 @@ namespace Lykke.HeatMap {
         }
 
         
-        static GenerateOtherAssets(w:number, h:number, data:IOvershootThreshold[]):string{
-            return '<table style="width: 100%; height: 100%">' +
-                '<tr><td></td><td></td><td></td></tr></table>'
+        static GenerateOtherAssets(w:number, h:number, data:IOvershoot[]):string{
+    
+            let result = '<table style="width: 100%; height: 100%">';
+            
+            let amountOnLine = 3;
+            let count = 0;
+            
+            let ww = w/amountOnLine;
+            let hh = h/amountOnLine;
+            
+            let style = 'width:'+ww+'px;height:'+hh+'px; padding:2px';
+            
+                style += ';font-size:8px';
+            
+            for(let i=0; i<data.length; i++){
+                let overshoot = data[i];
+                
+                if (count == 0)
+                    result += '<tr>';
+                
+                result += '<td style="'+style+'">'+this.GenerateThresholdLayers(ww, hh, overshoot)+'</td>';
+                
+                count++;
+                
+                if (count>=amountOnLine){
+                    result += '</tr>';
+                    count = 0;
+                }
+                
+            }
+            
+            if (count>0)
+                result += '</tr>';
+            
+            return result+'</table>';
         }
         
     }

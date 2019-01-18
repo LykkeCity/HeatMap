@@ -1,5 +1,37 @@
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
 namespace HeatMap.Web.Models
 {
+
+    public class OvershootResponseContract
+    {
+        public OvershootContract Index { get; set; }
+        
+        
+        public OvershootContract[] Parts { get; set; }
+
+
+        public static OvershootResponseContract CreateMock()
+        {
+            return new OvershootResponseContract
+            {
+                Index = OvershootContract.CreateMockLyCi(),
+                Parts = new[]
+                {
+                    OvershootContract.CreateMockLyCi(),
+                    OvershootContract.CreateMockLyCi(),
+                    OvershootContract.CreateMockLyCi(),
+                    OvershootContract.CreateMockLyCi(),
+                    OvershootContract.CreateMockLyCi(),
+                    OvershootContract.CreateMockLyCi(),
+                    OvershootContract.CreateMockLyCi(),
+                    OvershootContract.CreateMockLyCi(),
+                    OvershootContract.CreateMockLyCi()
+                }
+            };
+        }
+    }
+    
     public class OvershootContract
     {
         public string AssetId { get; set; }
@@ -13,18 +45,9 @@ namespace HeatMap.Web.Models
             return new OvershootContract
             {
                 AssetId = "LyCI",
-                Thresholds = new []
-                {
-                    OvershootThresholdContract.Create(0.1, 0.1, "up"), 
-                    OvershootThresholdContract.Create(0.2, 0.4, "up"),
-                    OvershootThresholdContract.Create(0.3, 0.6, "down"),
-                    OvershootThresholdContract.Create(0.4, 0.8, "up"),
-                    OvershootThresholdContract.Create(0.5, 1.0, "up")
-                    
-                }
+                Thresholds = OvershootThresholdContract.FillMockData()
             };
         }
-        
         
     }
 
@@ -44,6 +67,18 @@ namespace HeatMap.Web.Models
                 Delta = delta,
                 Direction = direction
 
+            };
+        }
+
+        public static OvershootThresholdContract[] FillMockData()
+        {
+            return new []
+            {
+                Create(0.1, 0.1, "up"),
+                Create(0.2, 0.4, "up"),
+                Create(0.3, 0.6, "down"),
+                Create(0.4, 0.8, "up"),
+                Create(0.5, 1.0, "up")
             };
         }
     }
