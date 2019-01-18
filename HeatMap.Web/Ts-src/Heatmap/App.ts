@@ -11,7 +11,9 @@ namespace Lykke.HeatMap {
             DataService.getOvershoots(resp =>{
                 this._leftPanel = resp;
                 let rootElement = DomElements.getRootElement();
-                rootElement.html(HtmlGenerators.GenerateLayout(rootElement.width(), rootElement.height(), resp));
+                let layout = HtmlGenerators.GenerateLayout(rootElement.width(), rootElement.height(), resp);
+                rootElement.html(layout);
+                console.log(layout);
             });
             
         }
@@ -23,7 +25,7 @@ namespace Lykke.HeatMap {
     }
 
     window.addEventListener("load", () => {
-        console.log("Heatmap loaded");
+        console.log("HeatMap loaded");
         App.timer();
         window.setInterval(() => App.timer(), 5000);
     });

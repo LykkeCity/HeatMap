@@ -92,6 +92,8 @@ namespace Lykke.HeatMap {
             
         }
         
+
+        
         
         static GenerateThresholdLayers(w:number, h:number, data:IOvershoot):string{
 
@@ -100,46 +102,37 @@ namespace Lykke.HeatMap {
             
             let cw = (w-center_w) / data.thresholds.length;
             let ch = (h-center_h) / data.thresholds.length;
+
+            let cwh = cw * 0.5;
             let chh = ch * 0.5;
    
+            let paddingStyle = 'style="width:'+cwh+'px; height:'+chh+'px"';
+            
             let result = '';
-
             
             for(let i=0; i<data.thresholds.length; i++){
                 
                 let threshold = data.thresholds[i];
-                let lh = h - ch*i;
-                let bh = h - ch*(i+1);
-           
-                let lw = w - cw*i;
-                
-                let top =0;
-                if (i>0)
-                    top =-h*i + chh*i*i;
-                
-                
    
                 let color = HtmlGenerators.getDeltaColour(threshold.delta);
                 
-                let style='style="top:'+top+'px; left:'+(cw*0.5*i)+'px; width:'+lw+'px;height: '+lh+'px; background:#'+color+'"';
-                    //style +='; padding: 0 '+(cw*0.5)+'px"';
+                let style='style="width:100%;height:100%; background:#'+color+'"';
                 
-                
-                
-                result += '<div id="'+data.assetId+'-threshold-0'+lw+'" class="threshold"'+style+'>' +
-                    '<div class="percent" style="line-height: '+chh+'px;height:'+chh+'px">'+threshold.percent.toFixed(2)+'%</div>'+
-                    '<div class="direction" style="text-align: right; line-height: '+bh+'px;height:'+bh+'px"><img src="/images/arrow-'+threshold.direction+'.svg" style="width:24px"/></div>'+
-                    '<div class="percent" style="line-height: '+chh+'px; height:'+chh+'px">'+threshold.delta+'δ</div></div>';
+                result += '<table id="'+data.assetId+'-threshold-0'+i+'" class="threshold" '+style+'">' +
+                    '<tr><td '+paddingStyle+'></td><td>'+threshold.percent.toFixed(2)+'%</td><td '+paddingStyle+'></td></tr>' +
+                    '<tr><td></td><td>';
             }
 
-
-            let i = data.thresholds.length;
-            let top =0;
-            if (i>0)
-                top =-h*i + chh*i*i;
-            
-            let style='style="top:'+top+'px; left:'+(cw*0.5*data.thresholds.length)+'px; width:'+center_w+'px;height: '+center_h+'px; line-height:'+center_h+'px;background:white"';
+            let style='style="width:'+center_w+'px;height: '+center_h+'px; line-height:'+center_h+'px;background:white"';
             result += '<div class="threshold" '+style+'>'+data.assetId+'</div>';
+            
+            for (let i=data.thresholds.length-1; i>=0; i--){
+                let threshold = data.thresholds[i];
+                
+                result += '</td><td><img src="/images/arrow-'+threshold.direction+'.svg" style="width:24px"/></td></tr>'+
+                    '<tr><td '+paddingStyle+'></td><td>'+threshold.delta.toFixed(2)+'δ</td><td '+paddingStyle+'></td></tr>' +
+                    '</table>';
+            } 
             
  
             return result;
