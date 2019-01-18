@@ -7,14 +7,31 @@
     ]
   },
   {
-    "outputFileName": "wwwroot/js/lykke-heat-map.min.js",
+    "outputFileName": "wwwroot/js/lykke-tiles.min.js",
     "inputFiles": [
       "wwwroot/js/Utils.js",
-      "wwwroot/js/HtmlGenerators.js",
-      "wwwroot/js/AssetPairs.js",
       "wwwroot/js/Ajax.js",
-      "wwwroot/js/LykkeServices.js",
-      "wwwroot/js/lykke-heat-map.js"
+      "wwwroot/js/GraphTiles/HtmlGenerators.js",
+      "wwwroot/js/GraphTiles/AssetPairs.js",
+      "wwwroot/js/GraphTiles/DataService.js",
+      "wwwroot/js/GraphTiles/ServiceLocator.js",
+      "wwwroot/js/GraphTiles/App.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": false
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/js/lykke-heatmap.min.js",
+    "inputFiles": [
+      "wwwroot/js/Utils.js",
+      "wwwroot/js/Ajax.js",
+      "wwwroot/js/HeatMap/HtmlGenerators.js",
+      "wwwroot/js/HeatMap/DataService.js",
+      "wwwroot/js/HeatMap/ServiceLocator.js",
+      "wwwroot/js/HeatMap/App.js"
     ],
     "minify": {
       "enabled": true,
