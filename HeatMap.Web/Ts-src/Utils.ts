@@ -52,6 +52,14 @@ namespace Lykke {
 
             return max;
         }
+        
+        public static toHex(v:number):string{
+            v = Utils.round(v, 0);
+            if (v<16)
+                return "0"+v.toString(16);
+            
+            return v.toString(16);
+        }
 
         public static min(data: number[]): number {
 

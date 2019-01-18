@@ -11,11 +11,13 @@ namespace HeatMap.Domains
         DateTime DateTime { get; }
         double Bid { get; }
         double Ask { get; }
+
+        bool Up { get; }
     }
-    
+
     public interface IBidAskRepository
     {
-        Task<IEnumerable<IBidAsk>> GetAllAsync();
+        ValueTask<IEnumerable<IBidAsk>> GetAllAsync();
     }
 
 
@@ -26,5 +28,5 @@ namespace HeatMap.Domains
             return (bidAsk.Bid + bidAsk.Ask) * 0.5;
         }
     }
-    
+
 }

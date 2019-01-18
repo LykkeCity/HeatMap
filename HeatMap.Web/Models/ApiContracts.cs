@@ -4,7 +4,6 @@ namespace HeatMap.Web.Models
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        
         public int Accuracy { get; set; }
 
         public static AssetContract Create(string id, string name, int accuracy)
@@ -17,10 +16,9 @@ namespace HeatMap.Web.Models
             };
         }
 
-
-        private static AssetContract[] _mock = new []
+        private static AssetContract[] _mock = new[]
         {
-            Create("EURUSD", "EUR/USD", 5), 
+            Create("EURUSD", "EUR/USD", 5),
             Create("AUDCAD", "AUD/CAD", 5),
             Create("GBPUSD", "GBP/USD", 5),
             Create("USDCHF", "USD/CHF", 5),
@@ -30,10 +28,10 @@ namespace HeatMap.Web.Models
             Create("EURGBP", "EUR/GBP", 5),
             Create("EURCAD", "EUR/CAD", 5),
         };
-        
+
         public static AssetContract[] GetMockResult()
         {
-            return _mock; 
+            return _mock;
         }
     }
 
@@ -42,7 +40,7 @@ namespace HeatMap.Web.Models
     {
         public string Id { get; private set; }
         public double Rate { get; private set; }
-        
+
         public double[] History { get; private set; }
 
         public static AssetDataContract Create(string id, double rate, double[] history)

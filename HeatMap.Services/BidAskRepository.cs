@@ -25,6 +25,8 @@ namespace HeatMap.Services
         public double Bid { get; set; }
         public double Ask { get; set; }
 
+        public bool Up { get; set; }
+
         public static BidAskMySqlTableEntity Create(IBidAsk bidAsk)
         {
             return new BidAskMySqlTableEntity
@@ -47,7 +49,7 @@ namespace HeatMap.Services
             _table = table;
         }
         
-        public async Task<IEnumerable<IBidAsk>> GetAllAsync()
+        public async ValueTask<IEnumerable<IBidAsk>> GetAllAsync()
         {
             var partitionKey = BidAskMySqlTableEntity.GeneratePartitionKey();
             return await _table.GetAsync(partitionKey);

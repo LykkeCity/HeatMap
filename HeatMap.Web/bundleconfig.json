@@ -2,11 +2,10 @@
   {
     "outputFileName": "wwwroot/css/site.min.css",
     "inputFiles": [
-     
-      "wwwroot/css/site.css"
+      "wwwroot/css/site.css",
+      "wwwroot/css/lykke-tiles.css"
     ]
   },
-
   {
     "outputFileName": "wwwroot/js/lykke-heat-map.min.js",
     "inputFiles": [

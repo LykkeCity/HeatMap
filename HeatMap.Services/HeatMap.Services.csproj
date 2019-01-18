@@ -5,6 +5,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.2" />
+    </ItemGroup>
+
+    <ItemGroup>
       <ProjectReference Include="..\Common\Common.csproj" />
       <ProjectReference Include="..\HeatMap.Domains\HeatMap.Domains.csproj" />
       <ProjectReference Include="..\MyNoSqlServerClient\MyNoSqlServerClient.csproj" />

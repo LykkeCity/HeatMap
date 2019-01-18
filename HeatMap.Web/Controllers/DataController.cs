@@ -12,13 +12,13 @@ namespace HeatMap.Web.Controllers
     [ApiController]
     public class DataController: ControllerBase
     {
-        private readonly IBidAskRepository _bidAskRepository;
+        private readonly IBidAskCache _bidAskCache;
         private readonly IBidAskHistoryRepository _bidAskHistoryRepository;
 
 
-        public DataController(IBidAskRepository bidAskRepository, IBidAskHistoryRepository bidAskHistoryRepository)
+        public DataController(IBidAskCache bidAskCache, IBidAskHistoryRepository bidAskHistoryRepository)
         {
-            _bidAskRepository = bidAskRepository;
+            _bidAskCache = bidAskCache;
             _bidAskHistoryRepository = bidAskHistoryRepository;
         }
 
@@ -48,7 +48,7 @@ namespace HeatMap.Web.Controllers
         [HttpGet]
         public  async Task<IEnumerable<AssetDataContract>> Get()
         {
-            var bidAsks = await _bidAskRepository.GetAllAsync();
+            var bidAsks = _bidAskCache.GetProfile();
             var bidAskHistory = await _bidAskHistoryRepository.GetAllAsync();
             return AssembleResult(bidAsks, bidAskHistory);
             

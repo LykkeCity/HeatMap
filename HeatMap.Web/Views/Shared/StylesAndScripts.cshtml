@@ -1,7 +1,8 @@
  <environment include="Development">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css?rnd=@Guid.NewGuid().ToString("N")" />
-        
+    <link rel="stylesheet" href="~/css/lykke-tiles.css?rnd=@Guid.NewGuid().ToString("N")" />
+    <link rel="stylesheet" href="~/css/lykke-heatmap.css?rnd=@Guid.NewGuid().ToString("N")" />
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
         
@@ -13,6 +14,11 @@
     <script src="~/js/GraphTiles/AssetPairs.js?rnd=@Guid.NewGuid().ToString("N")"></script>
     <script src="~/js/GraphTiles/DataService.js?rnd=@Guid.NewGuid().ToString("N")"></script>           
     <script src="~/js/GraphTiles/ServiceLocator.js?rnd=@Guid.NewGuid().ToString("N")"></script>
+    
+    
+    <script src="~/js/Heatmap/HtmlGenerators.js?rnd=@Guid.NewGuid().ToString("N")"></script>
+    <script src="~/js/Heatmap/DataService.js?rnd=@Guid.NewGuid().ToString("N")"></script>     
+    <script src="~/js/Heatmap/ServiceLocator.js?rnd=@Guid.NewGuid().ToString("N")"></script>    
  </environment>       
         
 
@@ -20,7 +26,7 @@
 
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-        
+
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
         @*

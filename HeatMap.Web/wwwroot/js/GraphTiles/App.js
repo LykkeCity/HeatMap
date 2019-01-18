@@ -17,7 +17,10 @@ var Lykke;
             };
             App.timer = function () {
                 this.resize();
-                GraphTiles.ServiceLocator.assetPairs.timer();
+                if (GraphTiles.ServiceLocator.assetPairs.assetsLoaded())
+                    GraphTiles.ServiceLocator.assetPairs.populateAssetData();
+                else
+                    GraphTiles.ServiceLocator.assetPairs.loadAssets();
             };
             App.width = 0;
             App.height = 0;

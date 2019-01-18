@@ -1,14 +1,17 @@
+using HeatMap.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HeatMap.Web.Controllers
 {
-    public class HeatMapController : Controller
+    
+    [Route("api/[controller]/[Action]")]
+    [ApiController]
+    public class HeatMapController : ControllerBase
     {
-        // GET
-        public IActionResult Index()
+        [HttpGet]
+        public OvershootContract Overshoot(string assetPair)
         {
-            return
-            View();
+            return OvershootContract.CreateMockLyCi();
         }
     }
 }

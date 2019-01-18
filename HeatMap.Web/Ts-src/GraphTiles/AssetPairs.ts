@@ -4,14 +4,13 @@ namespace Lykke.GraphTiles {
 
         private _assets: IAssetPair[];
 
-
         assetsLoaded(): boolean {
             return this._assets != undefined;
         }
 
         private getAssetPair(id: string): IAssetPair {
 
-            for (var i = 0; i < this._assets.length; i++) {
+            for (let i = 0; i < this._assets.length; i++) {
                 if (this._assets[i].id == id)
                     return this._assets[i];
             }
@@ -19,7 +18,7 @@ namespace Lykke.GraphTiles {
             return undefined;
         }
 
-        private loadAssets() {
+        loadAssets():void {
 
             DataService.getAssets(assets => {
                 this._assets = assets;
@@ -90,7 +89,7 @@ namespace Lykke.GraphTiles {
 
         }
 
-        private populateAssetData(): void {
+          populateAssetData(): void {
 
             DataService.getAssetsData(assetData => {
 
@@ -102,12 +101,6 @@ namespace Lykke.GraphTiles {
             });
         }
 
-        public timer(): void {
-            if (!this._assets)
-                this.loadAssets();
-            else
-                this.populateAssetData();
-        }
 
         public resize(): void {
             if (!this._assets)

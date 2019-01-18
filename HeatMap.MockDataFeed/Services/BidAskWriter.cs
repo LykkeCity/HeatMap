@@ -18,6 +18,7 @@ namespace HeatMap.MockDataFeed.Services
         public DateTime DateTime { get; set; }
         public double Bid { get; set; }
         public double Ask { get; set; }
+        public bool Up { get; set; }
     }
 
     public static class BidAskWriter
@@ -33,7 +34,7 @@ namespace HeatMap.MockDataFeed.Services
         public static async Task UpdateAsync(IBidAsk[] items)
         {
             await BidAskRepository.UpdateAsync(items);
-            Console.WriteLine($"{DateTime.UtcNow}: Updated BidAsk. Count:"+items.Length);
+            Console.WriteLine($"{DateTime.UtcNow}: Updated BidAsk. Count:" + items.Length);
         }
 
     }

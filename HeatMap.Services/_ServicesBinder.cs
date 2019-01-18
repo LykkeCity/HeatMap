@@ -13,6 +13,9 @@ namespace HeatMap.Services
     
     public static class ServicesBinder
     {
+
+        public static TimerExecutor TimerExecutor;
+        
         public static void BindHeatMapServices(this IDependencyCollection dc, IServicesSettings settings)
         {
             var bidAskRepository = new BidAskRepository(new MyNoSqlServerClient<BidAskMySqlTableEntity>(settings.CacheUrl, "bidask"));
@@ -21,6 +24,19 @@ namespace HeatMap.Services
             
             var bidAskHistoryRepository = new BidAskHistoryRepository(new MyNoSqlServerClient<BidAskHistoryTableEntity>(settings.CacheUrl, "bidaskhistory"));
             dc.AddSingleton<IBidAskHistoryRepository, BidAskHistoryRepository>(bidAskHistoryRepository);
+            
+            
+            var bidAskCache = new BidAskCache(bidAskRepository);
+            dc.AddSingleton<IBidAskCache, BidAskCache>(bidAskCache);
+            
+            
+            TimerExecutor = new TimerExecutor(1000)
+                .RegisterTimer(nameof(bidAskCache), bidAskCache);
+            
+            TimerExecutor.Start();
+            
+            
+            
         }
         
     }

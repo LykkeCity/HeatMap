@@ -18,8 +18,13 @@ namespace Lykke.GraphTiles {
 
         public static timer(): void {
             this.resize();
-            ServiceLocator.assetPairs.timer();
+
+            if (ServiceLocator.assetPairs.assetsLoaded())
+                ServiceLocator.assetPairs.populateAssetData();
+            else
+                ServiceLocator.assetPairs.loadAssets();
         }
+        
     }
 
     ServiceLocator.assetPairs = new AssetPairs();

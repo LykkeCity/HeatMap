@@ -70,12 +70,6 @@ var Lykke;
                     });
                 });
             };
-            AssetPairs.prototype.timer = function () {
-                if (!this._assets)
-                    this.loadAssets();
-                else
-                    this.populateAssetData();
-            };
             AssetPairs.prototype.resize = function () {
                 if (!this._assets)
                     return;
