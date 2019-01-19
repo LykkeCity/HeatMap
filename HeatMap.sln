@@ -16,6 +16,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02.Domains", "02.Domains", "{DE5561E5-1553-4CE5-8C67-336E63A6099F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeatMap.DataJob", "HeatMap.DataJob\HeatMap.DataJob.csproj", "{544D7FCA-5177-4E1C-91BB-B2216C262AD7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{E6DF7607-B19E-4C5C-96BF-9642ADC50E73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6DF7607-B19E-4C5C-96BF-9642ADC50E73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6DF7607-B19E-4C5C-96BF-9642ADC50E73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{544D7FCA-5177-4E1C-91BB-B2216C262AD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{544D7FCA-5177-4E1C-91BB-B2216C262AD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{544D7FCA-5177-4E1C-91BB-B2216C262AD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{544D7FCA-5177-4E1C-91BB-B2216C262AD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7957AA7E-F128-44CD-996D-9E269EED9584} = {D0F6943E-DBA1-4C1C-BD94-8C5BDA233D0B}
