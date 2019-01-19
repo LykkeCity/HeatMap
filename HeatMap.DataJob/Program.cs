@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using HeatMap.Services;
 using Lykke.RabbitMqBroker.Subscriber;
 using MyNoSqlServerClient;
@@ -28,11 +29,10 @@ namespace HeatMap.DataJob
             IndexInfoFeed.RabbitMqConnector.Init(indexInfoCache);
             IndexInfoFeed.RabbitMqConnector.RunIt(rabbitMqSettings);
 
+            Console.WriteLine("Running...");
             while (true)
-            {
-                Console.WriteLine("Running...");
-                Console.ReadLine();
-            }
+                Thread.Sleep(5000);
+            
         }
     }
 }
