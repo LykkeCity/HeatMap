@@ -84,12 +84,7 @@ namespace Lykke.HeatMap {
                 b = 211;
             }
 
-            let result = Utils.toHex(r)+Utils.toHex(g)+Utils.toHex(b);
-            
-            console.log(delta+"=#"+result);
-            console.log("R:"+r+"; G:"+g+"; B:"+b);
-            
-            return result;
+            return Utils.toHex(r)+Utils.toHex(g)+Utils.toHex(b);
             
         }
         
@@ -106,6 +101,11 @@ namespace Lykke.HeatMap {
                 dirsize = 'width:8px';
                 center_w = 35;
                 center_h = 20;
+            }
+            if (h<105){
+                dirsize = 'width:4px';
+                center_w = 25;
+                center_h = 10;
             }
 
 
@@ -153,19 +153,28 @@ namespace Lykke.HeatMap {
         }
 
         
+        static GetFontSize(w:number, h:number):string{
+            if (h<=105)
+                return "4px";
+            
+            return "8px";
+        }
+        
         static GenerateOtherAssets(w:number, h:number, data:IOvershoot[]):string{
     
             let result = '<table style="width: 100%; height: 100%">';
             
-            let amountOnLine = 3;
+            let amountOnLine = Utils.round(Math.sqrt(data.length), 0);
             let count = 0;
             
             let ww = w/amountOnLine;
             let hh = h/amountOnLine;
             
+            console.log("W:"+ww+"; H:"+hh);
+            
             let style = 'width:'+ww+'px;height:'+hh+'px; padding:2px';
             
-                style += ';font-size:8px';
+                style += ';font-size:'+this.GetFontSize(ww, hh);
             
             for(let i=0; i<data.length; i++){
                 let overshoot = data[i];
