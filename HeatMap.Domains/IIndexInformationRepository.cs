@@ -27,5 +27,8 @@ namespace HeatMap.Domains
     public interface IIndexInformationRepository
     {
         ValueTask UpdateAsync(IIndexInformation data);
+
+
+        ValueTask<IIndexInformation> GetAsync(string id);
     }
 }

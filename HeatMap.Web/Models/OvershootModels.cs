@@ -1,4 +1,6 @@
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Collections.Generic;
+using System.Linq;
+using HeatMap.Domains;
 
 namespace HeatMap.Web.Models
 {
@@ -11,23 +13,12 @@ namespace HeatMap.Web.Models
         public OvershootContract[] Parts { get; set; }
 
 
-        public static OvershootResponseContract CreateMock()
+        public static OvershootResponseContract CreateMock(IEnumerable<IIndexAssetInfo> indexAssetInfo)
         {
             return new OvershootResponseContract
             {
-                Index = OvershootContract.CreateMockLyCi(),
-                Parts = new[]
-                {
-                    OvershootContract.CreateMockLyCi(),
-                    OvershootContract.CreateMockLyCi(),
-                    OvershootContract.CreateMockLyCi(),
-                    OvershootContract.CreateMockLyCi(),
-                    OvershootContract.CreateMockLyCi(),
-                    OvershootContract.CreateMockLyCi(),
-                    OvershootContract.CreateMockLyCi(),
-                    OvershootContract.CreateMockLyCi(),
-                    OvershootContract.CreateMockLyCi()
-                }
+                Index = OvershootContract.CreateMockLyCi("LCI"),
+                Parts = indexAssetInfo.OrderByDescending(itm => itm.Weight).Select(info => OvershootContract.CreateMockLyCi(info.AssetId)).ToArray()
             };
         }
     }
@@ -40,11 +31,11 @@ namespace HeatMap.Web.Models
         public OvershootThresholdContract[] Thresholds { get; set; }
 
 
-        public static OvershootContract CreateMockLyCi()
+        public static OvershootContract CreateMockLyCi(string assetId)
         {
             return new OvershootContract
             {
-                AssetId = "LyCI",
+                AssetId = assetId,
                 Thresholds = OvershootThresholdContract.FillMockData()
             };
         }

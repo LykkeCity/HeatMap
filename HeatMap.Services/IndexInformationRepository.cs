@@ -78,5 +78,13 @@ namespace HeatMap.Services
             var newEntity = IndexInformationTableEntity.Create(data);
             await _dbTable.InsertOrReplaceAsync(newEntity);
         }
+
+        public async ValueTask<IIndexInformation> GetAsync(string id)
+        {
+            var partitionKey = IndexInformationTableEntity.GeneratePartitionKey();
+            var rowKey = IndexInformationTableEntity.GenerateRowKey(id);
+            return await _dbTable.GetAsync(partitionKey, rowKey);
+            
+        }
     }
 }

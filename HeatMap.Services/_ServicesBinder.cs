@@ -30,6 +30,9 @@ namespace HeatMap.Services
             dc.AddSingleton<IBidAskCache, BidAskCache>(bidAskCache);
             
             
+            var indexInfoRepo = new IndexInformationRepository(new MyNoSqlServerClient<IndexInformationTableEntity>(settings.CacheUrl, "indexinfo"));
+            dc.AddSingleton<IIndexInformationRepository, IndexInformationRepository>(indexInfoRepo);
+            
             TimerExecutor = new TimerExecutor(1000)
                 .RegisterTimer(nameof(bidAskCache), bidAskCache);
             
