@@ -71,10 +71,10 @@ namespace HeatMap.DataJob.IndexInfoFeed
             var newBitAsk = BidAsk.Create(contract.AssetPair, contract.Bid, contract.Timestamp);
             
             result.Add(newBitAsk);
-
             result.AddRange(contract.AssetsInfo.Select(assetInfo => BidAsk.Create(assetInfo.AssetId, assetInfo.Price, contract.Timestamp)));
 
             await BidAskHistoryWriter.UpdateAsync(result.ToArray());
+            
         }
     }
 }
