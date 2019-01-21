@@ -1,0 +1,37 @@
+using System;
+using System.Threading.Tasks;
+using HeatMap.Domains;
+using HeatMap.Services;
+using Newtonsoft.Json;
+
+namespace HeatMap.DataJob.IndexInfoFeed
+{
+
+    public class BidAskContract : IBidAsk
+    {
+        [JsonProperty("Asset")]
+        public string Id { get; set; }
+        public DateTime DateTime { get; set; }
+        public double Bid { get; set; }
+        public double Ask { get; set; }
+        public bool Up { get; set; }
+    }
+
+    public static class BidAskWriter
+    {
+
+        public static BidAskRepository BidAskRepository { get; private set; }
+
+        public static void Inject(BidAskRepository bidAskRepository)
+        {
+            BidAskRepository = bidAskRepository;
+        }
+
+        public static async Task UpdateAsync(IBidAsk[] items)
+        {
+            await BidAskRepository.UpdateAsync(items);
+            Console.WriteLine($"{DateTime.UtcNow}: Updated BidAsk. Count:" + items.Length);
+        }
+
+    }
+}

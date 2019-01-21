@@ -29,8 +29,11 @@ namespace HeatMap.DataJob
             var historyRepo = new BidAskHistoryRepository(
                 new MyNoSqlServerClient<BidAskHistoryTableEntity>(settings.CacheUrl, "bidaskhistory"));
             
-            IndexInfoFeed.BidAskHistoryWriter.Inject(historyRepo);
+            var table = new MyNoSqlServerClient<BidAskMySqlTableEntity>(settings.CacheUrl, "bidask");
+            var bidAskRepository = new BidAskRepository(table);            
             
+            IndexInfoFeed.BidAskHistoryWriter.Inject(historyRepo);
+            IndexInfoFeed.BidAskWriter.Inject(bidAskRepository);
             IndexInfoFeed.RabbitMqConnector.Init(indexInfoCache);
             IndexInfoFeed.RabbitMqConnector.RunIt(rabbitMqSettings);
 
