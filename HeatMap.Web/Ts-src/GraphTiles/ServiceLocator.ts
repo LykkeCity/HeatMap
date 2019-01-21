@@ -15,11 +15,14 @@ namespace Lykke.GraphTiles {
 
 
     export class DomElements {
-        private static _rootElement: JQuery;
-        public static getRootElement(): JQuery {
+        
+        private static rootClassName = 'lykke-tiles';
+        
+        private static _rootElement: Element;
+        public static getRootElement(): Element {
 
             if (!this._rootElement)
-                this._rootElement = $('.lykke-tiles');
+                this._rootElement = document.getElementsByClassName(this.rootClassName)[0];
 
 
             return this._rootElement;

@@ -36,7 +36,7 @@ namespace Lykke.GraphTiles {
                 content += HtmlGenerators.generateAssetHtml(ap);
             });
 
-            DomElements.getRootElement().html(content);
+            DomElements.getRootElement().innerHTML = content;
 
         }
 
@@ -50,27 +50,25 @@ namespace Lykke.GraphTiles {
                 return;
             }
 
-            let el = $('#' + HtmlGenerators.generatePriceId(ad.id));
+            let el = document.getElementById(HtmlGenerators.generatePriceId(ad.id));
 
             let assetPair = this.getAssetPair(ad.id);
 
             let accuracy = assetPair ? assetPair.accuracy : 5;
 
-            el.html('$ ' + ad.rate.toFixed(accuracy));
+            el.innerText= '$ ' + ad.rate.toFixed(accuracy);
 
 
             let prevPrice = prevData ? prevData.rate : 0.0;
 
 
-            el = $('#' + HtmlGenerators.generateAssetPairId(ad.id));
+            el = document.getElementById(HtmlGenerators.generateAssetPairId(ad.id));
 
             if (prevPrice < ad.rate) {
-                el.removeClass(ServiceLocator.priceDownAttr);
-                el.addClass(ServiceLocator.priceUpAttr);
+                el.className = "asset-pair "+ServiceLocator.priceUpAttr;
             }
             else {
-                el.removeClass(ServiceLocator.priceUpAttr);
-                el.addClass(ServiceLocator.priceDownAttr);
+                el.className = "asset-pair "+ServiceLocator.priceDownAttr;
             }
 
             ServiceLocator.assetData.add(ad.id, ad);
@@ -78,15 +76,16 @@ namespace Lykke.GraphTiles {
 
         private populateAssetGraph(ad: IAssetData) {
 
-            let elAsset = $('#' + HtmlGenerators.generateAssetPairId(ad.id));
+            
+            let id =HtmlGenerators.generateAssetPairId(ad.id);
+            let elAsset:HTMLElement = document.getElementById(id);
             let asset = this.getAssetPair(ad.id);
 
-            let graph = HtmlGenerators.generateAssetChart(ad, asset, elAsset.width(), elAsset.height());
+            let graph = HtmlGenerators.generateAssetChart(ad, asset, elAsset.offsetWidth, elAsset.offsetHeight);
             //  console.log(graph);
-            let el = $('#' + HtmlGenerators.generateAssetGraphDataId(ad.id));
+            let el = document.getElementById(HtmlGenerators.generateAssetGraphDataId(ad.id));
 
-            el.attr('d', graph);
-
+            el.setAttribute('d', graph);
         }
 
           populateAssetData(): void {

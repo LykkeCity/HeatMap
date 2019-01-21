@@ -5,9 +5,9 @@ namespace Lykke.GraphTiles {
         private static height = 0;
 
         private static resize(): void {
-            let rootElement = DomElements.getRootElement();
-            let newWidth = rootElement.width();
-            let newHeight = rootElement.height();
+            let rootElement:any = DomElements.getRootElement();
+            let newWidth = rootElement.offsetWidth;
+            let newHeight = rootElement.offsetHeight;
 
             if (newWidth != this.width || newHeight != this.height) {
                 this.width = newWidth;
