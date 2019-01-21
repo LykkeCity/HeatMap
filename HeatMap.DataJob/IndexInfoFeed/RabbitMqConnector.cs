@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using HeatMap.Domains;
 using Lykke.Logs;
@@ -8,6 +10,27 @@ using Microsoft.Extensions.Logging.Console;
 
 namespace HeatMap.DataJob.IndexInfoFeed
 {
+    public class BidAsk : IBidAsk
+    {
+        public string Id { get; set; }
+        public DateTime DateTime { get; set; }
+        public double Bid { get; set; }
+        public double Ask { get; set; }
+        public bool Up { get; set; }
+
+
+        public static BidAsk Create(string id, double rate, DateTime dateTime)
+        {
+            return new BidAsk
+            {
+                Id = id,
+                Ask = rate,
+                Bid = rate,
+                DateTime = dateTime
+            };
+        }
+    }
+    
     public static class RabbitMqConnector
     {
 
@@ -35,12 +58,23 @@ namespace HeatMap.DataJob.IndexInfoFeed
                 .Start();
         }
 
+
+
         private static async Task HandleMessage(string msg)
         {
             Console.WriteLine(msg);
             Console.WriteLine("----");
             var contract = Newtonsoft.Json.JsonConvert.DeserializeObject<IndexInformationContract>(msg);
             await _informationRepository.UpdateAsync(contract);
+
+            var result = new List<IBidAsk>();
+            var newBitAsk = BidAsk.Create(contract.AssetPair, contract.Bid, contract.Timestamp);
+            
+            result.Add(newBitAsk);
+
+            result.AddRange(contract.AssetsInfo.Select(assetInfo => BidAsk.Create(assetInfo.AssetId, assetInfo.Price, contract.Timestamp)));
+
+            await BidAskHistoryWriter.UpdateAsync(result.ToArray());
         }
     }
 }
