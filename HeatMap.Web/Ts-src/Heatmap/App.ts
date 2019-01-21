@@ -6,7 +6,7 @@ namespace Lykke.HeatMap {
         private static width = 0;
         private static height = 0;
         
-        private static rootClass = 'lykke-heatmap';
+        
         private static heatMapId = "heatMapCanvas";
         
         private static myCanvas:MyCanvas;
@@ -20,7 +20,7 @@ namespace Lykke.HeatMap {
         }
         
         static resize():boolean {
-            let rootElement: any = document.getElementsByClassName(this.rootClass)[0];
+            let rootElement = DomElements.getRootElement();
             let newWidth: number = rootElement.offsetWidth;
             let newHeight: number = rootElement.offsetHeight;
 
