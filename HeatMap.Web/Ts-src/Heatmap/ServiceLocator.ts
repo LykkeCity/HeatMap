@@ -10,7 +10,7 @@ namespace Lykke.HeatMap {
         private static _rootElement: JQuery;
         public static getRootElement(): JQuery {
             if (!this._rootElement)
-                this._rootElement = $('.lykke-heatmap');
+                this._rootElement = $();
 
             return this._rootElement;
         }

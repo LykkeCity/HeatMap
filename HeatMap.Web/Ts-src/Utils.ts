@@ -1,5 +1,8 @@
+
 namespace Lykke {
 
+
+    
     interface IKeyValue<TValue> {
         key: string;
         value: TValue;
@@ -51,6 +54,11 @@ namespace Lykke {
             }
 
             return max;
+        }
+        
+        
+        public static trunc(v:number):number{
+            return (<any>Math).trunc(v);
         }
         
         public static toHex(v:number):string{
