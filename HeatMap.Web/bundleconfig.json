@@ -29,6 +29,7 @@
     "inputFiles": [
       "wwwroot/js/Utils.js",
       "wwwroot/js/Ajax.js",
+      "wwwroot/js/HeatMap/MyCanvas.js",
       "wwwroot/js/HeatMap/ContentRenderer.js",
       "wwwroot/js/HeatMap/DataService.js",
       "wwwroot/js/HeatMap/ServiceLocator.js",
