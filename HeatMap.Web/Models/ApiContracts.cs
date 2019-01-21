@@ -16,23 +16,24 @@ namespace HeatMap.Web.Models
             };
         }
 
-        private static readonly AssetContract[] _mock =
+        private static readonly AssetContract[] Mock =
         {
             Create("BTC", "BTC", 8),
+            Create("XRP", "XRP", 8),       
+            Create("ETH", "ETH", 8),
             
-            Create("EURUSD", "EUR/USD", 5),
-            Create("AUDCAD", "AUD/CAD", 5),
-            Create("GBPUSD", "GBP/USD", 5),
-            Create("USDCHF", "USD/CHF", 5),
-            Create("USDJPY", "USD/JPY", 3),
-            Create("USDCAD", "USD/CAD", 5),
-            Create("EURGBP", "EUR/GBP", 5),
-            Create("EURCAD", "EUR/CAD", 5),
+            Create("BCH", "BCH", 8),
+            Create("EOS", "EOS", 8),
+            Create("XLM", "XLM", 8),
+            Create("LTC", "LTC", 8),
+            Create("TRX", "TRX", 8),
+            Create("ETC", "ETC", 8),
+
         };
 
         public static AssetContract[] GetMockResult()
         {
-            return _mock;
+            return Mock;
         }
     }
 
