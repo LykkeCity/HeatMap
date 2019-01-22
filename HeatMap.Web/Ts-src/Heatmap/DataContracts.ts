@@ -7,7 +7,9 @@ namespace Lykke.HeatMap {
     }
 
     export interface IOvershoot {
-        assetId: string;
+        assetId: string; 
+        accuracy : number;
+        history: number[];
         thresholds: IOvershootThreshold[];
     }
 
