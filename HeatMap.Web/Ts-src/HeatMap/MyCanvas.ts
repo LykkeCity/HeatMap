@@ -104,14 +104,14 @@ class MyCanvas {
         this.setTextSize(fontSize);
         
         let textSize =this.ctx.measureText(text);
-        while (textSize.width>width*this.dpr) {
+        while (textSize.width>=width*this.dpr) {
             fontSize--;
             if (fontSize == 0)
                 return;
             this.setTextSize(fontSize);
             textSize =this.ctx.measureText(text);
         }
-        
+        this.setTextSize(fontSize+2);
         this.ctx.fillText(text, this.leftWithDpr+x*this.dpr,this.topWithDpr+y*this.dpr);
     }
 
