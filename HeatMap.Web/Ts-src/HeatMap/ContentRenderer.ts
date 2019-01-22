@@ -221,29 +221,28 @@ namespace Lykke.HeatMap {
             cnv.setWorkingRect(cnv.xOffset-5, top+y, cnv.width+10, h-y);
             this.drawGraph(cnv,active);
 
-
         }
         
         
         static DrawThresholdLayers(cnv:MyCanvas, data: IOvershoot):void {
             let center_w = 60;
             let center_h = 30;
-            let dirsize = 'width:24px';
-            let textsize = 16;
             let r = 5;
-
-            if (cnv.height<200){
-                dirsize = 'width:8px';
+            
+            if (cnv.height<300){
                 center_w = 35;
                 center_h = 20;
-                textsize = 5;
+                r = 4;
+            }
+            
+            if (cnv.height<200){
+                center_w = 35;
+                center_h = 20;
                 r = 4;
             }
             if (cnv.height<105){
-                dirsize = 'width:4px';
                 center_w = 25;
                 center_h = 10;
-                textsize = 3;
             }
 
 
@@ -266,11 +265,10 @@ namespace Lykke.HeatMap {
                     padding+i*chh, 
                     cnv.width-padding*2-i*cwh*2, 
                     cnv.height-padding*2-i*chh*2, 5, '#'+color);
-
             }
 
             let cx =cnv.width*0.5;
-            cnv.setTextSize(textsize);
+            cnv.setTextSize(chh - chh*0.5);
             cnv.setTextHorizontalAlign("center");
             cnv.setTextVerticalAlign("middle");
             cnv.clearShadow();
@@ -288,21 +286,18 @@ namespace Lykke.HeatMap {
             let cy = cnv.height*0.5;
 
             cnv.drawRoundRect( cx- center_w*.5, cy-center_h*0.5, center_w, center_h, r, 'white');
-            cnv.setTextSize(center_h-5);
             cnv.setFillStyle('black');
-            cnv.fillText(data.assetId, cx,cy);
-            
-            
-            
+            cnv.fitTextByWidth(data.assetId, cx,cy, center_h-5, center_h);
            
         }
+        
+
         
         static drawGraph(cnv:MyCanvas, data: IOvershoot){
 
             let result = "";
             if (data.history.length == 0)
                 return result;
-
 
             let xZoom = cnv.width / data.history.length;
 
@@ -314,13 +309,8 @@ namespace Lykke.HeatMap {
             let yZoom = Utils.trunc(maxDeviation / cnv.height);
 
             yZoom = yZoom*1.2;
-         //   yZoom++;
-    
 
             let y = cnv.height - Utils.pips(min, data.history[0], data.accuracy) / yZoom;
-
-            console.log('x: '+cnv.xOffset+"; y: "+cnv.yOffset+"; Height: "+cnv.height);
-            
 
             cnv.setShadow(0, 0, 5, "rgba(0,0,0,0.4)");
             

@@ -96,10 +96,26 @@ class MyCanvas {
     }
 
     
-    fillText(text:string, x:number, y:number){
+    fillText(text:string, x:number, y:number):void{
         this.ctx.fillText(text, this.leftWithDpr+x*this.dpr,this.topWithDpr+y*this.dpr);
     }
-    
+
+    fitTextByWidth(text:string, x:number, y:number, fontSize:number, width:number):void{
+        this.setTextSize(fontSize);
+        
+        let textSize =this.ctx.measureText(text);
+        while (textSize.width>width*this.dpr) {
+            fontSize--;
+            if (fontSize == 0)
+                return;
+            this.setTextSize(fontSize);
+            textSize =this.ctx.measureText(text);
+        }
+        
+        this.ctx.fillText(text, this.leftWithDpr+x*this.dpr,this.topWithDpr+y*this.dpr);
+    }
+
+
     setTextSize(size:number):void{
         this.ctx.font = size*this.dpr+'px Arial';
     }
