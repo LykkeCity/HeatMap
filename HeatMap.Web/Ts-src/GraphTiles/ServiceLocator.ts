@@ -24,7 +24,6 @@ namespace Lykke.GraphTiles {
             if (!this._rootElement)
                 this._rootElement = document.getElementsByClassName(this.rootClassName)[0];
 
-
             return this._rootElement;
         }
     }

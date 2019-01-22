@@ -6,7 +6,7 @@ class MyCanvas {
     
     private readonly dpr: number;
     
-    private readonly ctx:CanvasRenderingContext2D;
+    public readonly ctx:CanvasRenderingContext2D;
     
     public readonly canvasWidth:number;
     public readonly canvasHeight:number;
@@ -74,7 +74,15 @@ class MyCanvas {
     lineTo(x:number, y:number):void{
         this.ctx.lineTo(this.leftWithDpr+x*this.dpr, this.topWithDpr+y*this.dpr);
     }
-    
+
+    closePath():void{
+        this.ctx.closePath();
+    }
+
+    fill():void{
+        this.ctx.fill();
+    }
+
     setStrokeStyle(style:string):void{
         this.ctx.strokeStyle = style;
     }
@@ -83,7 +91,7 @@ class MyCanvas {
         this.ctx.lineWidth = w*this.dpr;
     }
 
-    setFillStyle(style:string):void{
+    setFillStyle(style:any):void{
         this.ctx.fillStyle = style;
     }
 

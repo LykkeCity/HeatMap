@@ -133,12 +133,6 @@ namespace Lykke.HeatMap {
             let x = Utils.trunc((cnv.mouseX - xc) / w) ;
             let y = Utils.trunc(cnv.mouseY / h) ;
             
-       //     cnv.setWorkingRectAllCanvas();
-            
-            
-      //      cnv.setTextSize(12);
-      //      cnv.fillText("X:"+x+"; Y:"+y, 100, 100, 'black');
-            
             return data.parts[y*amountOnLine + x];
                 
         }
@@ -191,6 +185,7 @@ namespace Lykke.HeatMap {
             if (y < 0) {
                 y = 0;
             }
+            let top = y;
 
             cnv.setShadow(0, 0, 20, 'black');
 
@@ -223,6 +218,8 @@ namespace Lykke.HeatMap {
             cnv.lineTo(w-10, y);
             cnv.stroke();
 
+            cnv.setWorkingRect(cnv.xOffset-5, top+y, cnv.width+10, h-y);
+            this.drawGraph(cnv,active);
 
 
         }
@@ -261,7 +258,6 @@ namespace Lykke.HeatMap {
             
             cnv.setShadow(0,0,5, 'rgba(0,0,0,0.5)');
             for(let i=0; i<data.thresholds.length; i++){
-
                 let threshold = data.thresholds[i];
 
                 let color = ContentRenderer.getDeltaColour(threshold.delta);
@@ -295,11 +291,54 @@ namespace Lykke.HeatMap {
             cnv.setTextSize(center_h-5);
             cnv.setFillStyle('black');
             cnv.fillText(data.assetId, cx,cy);
+            
+            
+            
            
         }
         
-        static drawArrow(cnv:MyCanvas, x:number, y:number){
+        static drawGraph(cnv:MyCanvas, data: IOvershoot){
+
+            let result = "";
+            if (data.history.length == 0)
+                return result;
+
+
+            let xZoom = cnv.width / data.history.length;
+
+            let max = Utils.max(data.history);
+            let min = Utils.min(data.history);
+
+            let maxDeviation = Utils.pips(min, max, data.accuracy);
+
+            let yZoom = Utils.trunc(maxDeviation / cnv.height);
+
+            yZoom = yZoom*1.2;
+         //   yZoom++;
+    
+
+            let y = cnv.height - Utils.pips(min, data.history[0], data.accuracy) / yZoom;
+
+            console.log('x: '+cnv.xOffset+"; y: "+cnv.yOffset+"; Height: "+cnv.height);
             
+
+            cnv.setShadow(0, 0, 5, "rgba(0,0,0,0.4)");
+            
+            cnv.setFillStyle("green");
+            cnv.beginPath();
+            cnv.moveTo(0,y);
+
+            for (let i = 1; i < data.history.length; i++) {
+                let x = i * xZoom;
+                y = cnv.height - Utils.pips(min, data.history[i], data.accuracy) / yZoom;
+                cnv.lineTo(x,y);
+            }
+
+            cnv.lineTo(cnv.width,y);
+            cnv.lineTo(cnv.width,cnv.height);
+            cnv.lineTo(0,cnv.height);
+            cnv.closePath();
+            cnv.fill();
         }
    
         
