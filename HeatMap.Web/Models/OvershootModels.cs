@@ -16,11 +16,16 @@ namespace HeatMap.Web.Models
 
         public static OvershootResponseContract CreateMock(IEnumerable<IIndexAssetInfo> indexAssetInfo, Func<string, double[]> getHistory)
         {
-            var lcy = "LCI";
+            const string lcy = "LCI";
             return new OvershootResponseContract
             {
-                Index = OvershootContract.CreateMockLyCi(lcy, 8, getHistory(lcy)),
-                Parts = indexAssetInfo.OrderByDescending(itm => itm.Weight).Select(info => OvershootContract.CreateMockLyCi(info.AssetId, 8, getHistory(info.AssetId))).ToArray()
+                Index = OvershootContract.CreateMockLyCi(lcy, 8, 1, getHistory(lcy)),
+                Parts = indexAssetInfo.OrderByDescending(itm => itm.Weight)
+                    .Select(info => OvershootContract.CreateMockLyCi(
+                        info.AssetId,  
+                        8, 
+                        info.Weight, 
+                        getHistory(info.AssetId))).ToArray()
             };
         }
     }
@@ -31,17 +36,20 @@ namespace HeatMap.Web.Models
         
         public int Accuracy { get; set; }
         
+        public double Weight { get; set; }
+        
         public double[] History { get; set; }
         public OvershootThresholdContract[] Thresholds { get; set; }
 
-        public static OvershootContract CreateMockLyCi(string assetId, int accuracy, double[] history)
+        public static OvershootContract CreateMockLyCi(string assetId, int accuracy, double weight, double[] history)
         {
             return new OvershootContract
             {
                 AssetId = assetId,
                 Thresholds = OvershootThresholdContract.FillMockData(),
                 Accuracy = accuracy,
-                History = history
+                History = history,
+                Weight = weight
             };
         }
         
@@ -53,7 +61,6 @@ namespace HeatMap.Web.Models
         public double Percent { get; set; }
         public double Delta { get; set; }
         public string Direction { get; set; }
-
 
         public static OvershootThresholdContract Create(double percent, double delta, string direction)
         {

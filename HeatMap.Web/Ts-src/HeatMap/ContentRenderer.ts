@@ -27,10 +27,12 @@ namespace Lykke.HeatMap {
         }
         
         static getDeltaColour(delta:number):string{
-            let r =0;
-            let g =0;
+            let r = ContentRenderer.getColourComponent(0.0,255, delta);
+            let g =ContentRenderer.getColourComponent(200,0.0, delta);
             let b =0;
             
+            
+            /*
             // red to orange
             if (delta<0.16){
                 let s_delta = ContentRenderer.getSubDelta(0, 0.16, delta);
@@ -78,7 +80,7 @@ namespace Lykke.HeatMap {
                 g = 0;
                 b = 211;
             }
-
+*/
             return Utils.toHex(r)+Utils.toHex(g)+Utils.toHex(b);
             
         }
@@ -209,7 +211,7 @@ namespace Lykke.HeatMap {
             cnv.setTextHorizontalAlign("left");
             cnv.fillText("Shape Ratio: 1.2",5, y);
             cnv.setTextHorizontalAlign("right");
-            cnv.fillText("Weight: 57.3%",w-10, y);
+            cnv.fillText("Weight: "+active.weight.toFixed(4)+"%",w-10, y);
             y = y+15;
             cnv.fillText("Annual volatility: 12%",w-10, y);
             y = y+15;
