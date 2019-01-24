@@ -36,26 +36,40 @@ namespace HeatMap.DataJob.IndexInfoFeed
 
         private static IIndexInformationRepository _informationRepository;
 
-        public static void Init(IIndexInformationRepository informationRepository)
+        private static IOvershootIndicatorsDataRepository _overshootIndicatorsDataRepository;
+        public static void Init(IIndexInformationRepository informationRepository, 
+            IOvershootIndicatorsDataRepository overshootIndicatorsDataRepository)
         {
             _informationRepository = informationRepository;
+            _overshootIndicatorsDataRepository = overshootIndicatorsDataRepository;
         }
         
         private static RabbitMqSubscriber<string> _connector;
 
-        public static void RunIt(RabbitMqSubscriptionSettings settings)
+        
+        private static RabbitMqSubscriber<string> _thresholds;
+        public static void RunIt(RabbitMqSubscriptionSettings settingsAssetsInfo,  RabbitMqSubscriptionSettings settingsThresholds)
         {
 
             var logFactory =  LogFactory.Create();
             logFactory.AddProvider( new ConsoleLoggerProvider((itm1, itm2) => true, true));
                 
             
-            _connector = new RabbitMqSubscriber<string>(logFactory, settings, new DefaultErrorHandlingStrategy(logFactory, settings))
+            
+            _connector = new RabbitMqSubscriber<string>(logFactory, settingsAssetsInfo, new DefaultErrorHandlingStrategy(logFactory, settingsAssetsInfo))
                 .SetMessageDeserializer(new DefaultStringDeserializer())
                 .SetMessageReadStrategy(new MessageReadWithTemporaryQueueStrategy())
                 .CreateDefaultBinding()
                 .Subscribe(HandleMessage)
                 .Start();
+            
+            _thresholds = new RabbitMqSubscriber<string>(logFactory, settingsThresholds, new DefaultErrorHandlingStrategy(logFactory, settingsThresholds))
+                .SetMessageDeserializer(new DefaultStringDeserializer())
+                .SetMessageReadStrategy(new MessageReadWithTemporaryQueueStrategy())
+                .CreateDefaultBinding()
+                .Subscribe(HandleThresholdsMessage)
+                .Start();
+            
         }
 
 
@@ -77,6 +91,17 @@ namespace HeatMap.DataJob.IndexInfoFeed
             var items = result.ToArray();
             await BidAskHistoryWriter.UpdateAsync(items);
             await BidAskWriter.UpdateAsync(items);
+
+        }
+        
+        private static async Task HandleThresholdsMessage(string msg)
+        {
+            Console.WriteLine(msg);
+            Console.WriteLine("----");
+            var contract = Newtonsoft.Json.JsonConvert.DeserializeObject<OvershootIndicatorsRabbitMqContract>(msg);
+
+            var data = contract.Indicators.GroupBy(itm => itm.AssetPair).ToDictionary(itm => itm.Key, itm => itm.Cast<IOvershootIndicatorData>());
+            await _overshootIndicatorsDataRepository.UpdateAsync(data);
 
         }
     }

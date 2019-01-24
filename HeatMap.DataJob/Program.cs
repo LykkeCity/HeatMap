@@ -22,6 +22,17 @@ namespace HeatMap.DataJob
                 ReconnectionsCountToAlarm = -1,
                 ReconnectionDelay = TimeSpan.FromSeconds(5)                
             };
+            
+            var rabbitMqSettingsThresholds = new RabbitMqSubscriptionSettings
+            {
+                ConnectionString = settings.RabbitMqConnectionString,
+                ExchangeName = settings.RabbitMqThresholdsExchange,
+                QueueName = $"{settings.RabbitMqThresholdsExchange}.HeatMapJob",
+                IsDurable = false,
+                ReconnectionsCountToAlarm = -1,
+                ReconnectionDelay = TimeSpan.FromSeconds(5)                
+            };
+
 
             var indexInfoCache = new IndexInformationRepository(
                 new MyNoSqlServerClient<IndexInformationTableEntity>(settings.CacheUrl, "IndexInfo"));
@@ -32,10 +43,13 @@ namespace HeatMap.DataJob
             var table = new MyNoSqlServerClient<BidAskMySqlTableEntity>(settings.CacheUrl, "bidask");
             var bidAskRepository = new BidAskRepository(table);            
             
+            var overshootIndicatorsDataTable = new MyNoSqlServerClient<OvershootIndicatorNoSqlEntity>(settings.CacheUrl, "overshoots");
+            var overshootIndicatorsRepository = new OvershootIndicatorsDataRepository(overshootIndicatorsDataTable);
+            
             IndexInfoFeed.BidAskHistoryWriter.Inject(historyRepo);
             IndexInfoFeed.BidAskWriter.Inject(bidAskRepository);
-            IndexInfoFeed.RabbitMqConnector.Init(indexInfoCache);
-            IndexInfoFeed.RabbitMqConnector.RunIt(rabbitMqSettings);
+            IndexInfoFeed.RabbitMqConnector.Init(indexInfoCache, overshootIndicatorsRepository);
+            IndexInfoFeed.RabbitMqConnector.RunIt(rabbitMqSettings, rabbitMqSettingsThresholds);
 
             Console.WriteLine("Running...");
             while (true)

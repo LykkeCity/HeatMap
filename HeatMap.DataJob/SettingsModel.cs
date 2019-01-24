@@ -9,6 +9,8 @@ namespace HeatMap.DataJob
         public string CacheUrl { get; set; }
         public string RabbitMqConnectionString { get; set; }
         public string RabbitMqExchange { get; set; }
+        public string RabbitMqThresholdsExchange { get; set; }
+
         public static SettingsModel Create()
         {
             var home = Environment.GetEnvironmentVariable("HOME").AddLastSymbolIfNotExists('/')+".heatmapdatajob";

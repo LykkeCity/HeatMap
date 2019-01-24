@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -41,18 +42,28 @@ namespace MyNoSqlServerClient
 
         public async Task InsertOrReplaceAsync(T entity)
         {
-            await _url
-                .AppendPathSegments("Row", "InsertOrReplace")
-                .SetQueryParam(TableName, _tableName)
-                .PostJsonAsync(entity);
+
+                await _url
+                    .AppendPathSegments("Row", "InsertOrReplace")
+                    .SetQueryParam(TableName, _tableName)
+                    .PostJsonAsync(entity);
         }
 
         public async Task BulkInsertOrReplaceAsync(IEnumerable<T> entities)
         {
-            await _url
-                .AppendPathSegments("Bulk", "InsertOrReplace")
-                .SetQueryParam(TableName, _tableName)
-                .PostJsonAsync(entities);
+            try
+            {
+                await _url
+                    .AppendPathSegments("Bulk", "InsertOrReplace")
+                    .SetQueryParam(TableName, _tableName)
+                    .PostJsonAsync(entities);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
 

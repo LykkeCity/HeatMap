@@ -23,4 +23,20 @@ namespace HeatMap.DataJob.IndexInfoFeed
         public IndexAssetInfoContract[] AssetsInfo { get; set; }
         IEnumerable<IIndexAssetInfo> IIndexInformation.AssetsInfo => AssetsInfo;
     }
+    
+    
+    /////////////////////////////////////////////////////////////////////////////
+
+    
+    public class OvershootIndicatorRabbitMqContract : IOvershootIndicatorData
+    {
+        public string AssetPair { get; set; }
+        public double Delta { get; set; }
+        public double Overshot { get; set; }
+    }
+
+    public class OvershootIndicatorsRabbitMqContract 
+    {
+        public OvershootIndicatorRabbitMqContract[] Indicators { get; set; }
+    }
 }
