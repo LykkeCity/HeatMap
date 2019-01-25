@@ -14,5 +14,8 @@ namespace HeatMap.Domains
     public interface IOvershootIndicatorsDataRepository
     {
         ValueTask UpdateAsync(IEnumerable<KeyValuePair<string, IEnumerable<IOvershootIndicatorData>>>  indicatorData);
+
+
+        ValueTask<Dictionary<string, IEnumerable<IOvershootIndicatorData>>> GetAsync();
     }
 }

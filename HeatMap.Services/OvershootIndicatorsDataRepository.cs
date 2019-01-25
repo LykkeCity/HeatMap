@@ -35,6 +35,11 @@ namespace HeatMap.Services
             return assetPair;
         }
 
+        internal string GetAssetPair()
+        {
+            return RowKey;
+        }
+
         public OvershootIndicatorDataEntity[] Overshoots { get; set; }
 
         public static OvershootIndicatorNoSqlEntity Create(string assetId, IEnumerable<IOvershootIndicatorData> overshoots)
@@ -62,5 +67,18 @@ namespace HeatMap.Services
             var entities = indicatorData.Select(kvp => OvershootIndicatorNoSqlEntity.Create(kvp.Key, kvp.Value)).ToArray();
             await _tableData.BulkInsertOrReplaceAsync(entities);
         }
+
+        public async ValueTask<Dictionary<string, IEnumerable<IOvershootIndicatorData>>> GetAsync()
+        {
+            var partitionKey = OvershootIndicatorNoSqlEntity.GeneratePartitionKey();
+
+            var result = await _tableData.GetAsync(partitionKey);
+
+            return result.ToDictionary(itm => itm.GetAssetPair(),
+                itm => itm.Overshoots.Cast<IOvershootIndicatorData>());
+            
+        }
+        
+        
     }
 }

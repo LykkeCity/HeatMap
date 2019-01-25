@@ -27,11 +27,19 @@ namespace Lykke.HeatMap {
         }
         
         static getDeltaColour(delta:number):string{
+            
+            if (delta>1)
+                delta = 1;
+                
             let r = ContentRenderer.getColourComponent(0.0,255, delta);
             let g =ContentRenderer.getColourComponent(200,0.0, delta);
             let b =0;
-            
-            
+
+            if (r>255)
+                r=255;
+
+            if (g>255)
+                g=255;
             /*
             // red to orange
             if (delta<0.16){
@@ -258,10 +266,17 @@ namespace Lykke.HeatMap {
 
             
             cnv.setShadow(0,0,5, 'rgba(0,0,0,0.5)');
+            if (data.thresholds.length == 0){
+                cnv.drawRoundRect(padding,
+                    padding,
+                    cnv.width-padding*2,
+                    cnv.height-padding*2, 5, 'gray');
+            }
+            else
             for(let i=0; i<data.thresholds.length; i++){
                 let threshold = data.thresholds[i];
 
-                let color = ContentRenderer.getDeltaColour(threshold.delta);
+                let color = ContentRenderer.getDeltaColour(Math.abs(threshold.percent));
 
                 cnv.drawRoundRect(padding +i*cwh, 
                     padding+i*chh, 
@@ -278,7 +293,7 @@ namespace Lykke.HeatMap {
             for (let i=0; i<data.thresholds.length; i++){
                 let y = padding+i*chh+chh*0.5;
                 let threshold = data.thresholds[i];
-                cnv.fillText(threshold.percent.toFixed(2)+"%", cx,y );
+                cnv.fillText((threshold.percent*100).toFixed(2)+"%", cx,y );
                 
                 y = cnv.height-padding-i*chh-chh*0.5;
                 cnv.fillText(threshold.delta.toFixed(2)+"δ", cx,y);
