@@ -29,6 +29,6 @@ namespace HeatMap.Domains
         ValueTask UpdateAsync(IIndexInformation data);
 
 
-        ValueTask<IIndexInformation> GetAsync(string id);
+        Task<IIndexInformation> GetAsync(string id);
     }
 }

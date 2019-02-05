@@ -23,7 +23,10 @@ namespace HeatMap.Web.Controllers
             _bidAskHistoryRepository = bidAskHistoryRepository;
             _overshootIndicatorsDataRepository = overshootIndicatorsDataRepository;
         }
-        
+
+
+        private const string AssetLci = "LCI";
+        private const string AssetPairLci = "LCIUSD";
         
         [HttpGet]
         public async ValueTask<OvershootResponseContract> Overshoot(string assetPair)
@@ -33,10 +36,14 @@ namespace HeatMap.Web.Controllers
 
             var indicators = await _overshootIndicatorsDataRepository.GetAsync();
             
-            var indexInfo = await _indexInformationRepository.GetAsync("LCI");
-            
+            var indexInfo = await _indexInformationRepository.GetAsync(AssetLci);
+
             var result = OvershootResponseContract.Create(indexInfo.AssetsInfo, 
                 id => dict.ContainsKey(id) ? dict[id].History : Array.Empty<double>());
+
+
+            if (indicators.ContainsKey(AssetPairLci))
+                result.Index.Thresholds = indicators[AssetPairLci].Select(OvershootThresholdContract.Create).ToArray();
 
             foreach (var part in result.Parts)
             {

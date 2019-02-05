@@ -79,6 +79,7 @@ namespace HeatMap.DataJob.IndexInfoFeed
             Console.WriteLine(msg);
             Console.WriteLine("----");
             var contract = Newtonsoft.Json.JsonConvert.DeserializeObject<IndexInformationContract>(msg);
+            
             await _informationRepository.UpdateAsync(contract);
 
             var result = new List<IBidAsk>();
